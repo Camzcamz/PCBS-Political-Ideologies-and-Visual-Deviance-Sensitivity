@@ -14,3 +14,10 @@ I have contacted the experimenters and obtained their materials (demographic, po
 *Hypothesis: If political opinion influences deviance sensitivity, we expect it to generalize to other stimuli than shapes.*
 3.	Does political opinion influence how we distinguish deviance in shape or colors only when we are prompt to manifest our political opinions prior to the image deviance judgment task?
 *Hypothesis: It may be that political opinion influences deviance sensitivity only when it is consciously brought to mind prior to deviance judgment rather than at all times. This will be the case if there is no difference between groups when they are asked about their political opinion following the task.*
+
+## Experiment Order ## 
+1. Run " Colors.py " once.
+2. Run " Rescale.py "once.
+3. Run " Final_Expyriment.py " for each subject.
+4. Access demographic data for all participants in " demographic.csv " file in Data folder. 
+5. Access image task data for each participant in Data folder. 
