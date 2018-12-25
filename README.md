@@ -9,7 +9,7 @@ I have contacted the experimenters and obtained their materials (demographic, po
 
 ## Research Question: Does political opinion influence how we distinguish deviance? ##
 1.	Does political opinion influence how we distinguish deviance in shape? 
-*Hypothesis: Yes, it does; based on Okimoto and Gromet (2015) findings.*
+*Hypothesis: Yes, it does; based on Okimoto and Gromet's (2015) findings.*
 2.	Does political opinion influence how we distinguish deviance in colors?
 *Hypothesis: If political opinion influences deviance sensitivity, we expect it to generalize to other stimuli than shapes.*
 3.	Does political opinion influence how we distinguish deviance in shape or colors only when we are prompt to manifest our political opinions prior to the image deviance judgment task?
