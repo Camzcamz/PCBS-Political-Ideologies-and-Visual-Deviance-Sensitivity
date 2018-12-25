@@ -22,6 +22,6 @@ screen = pygame.display.set_mode((W, H), pygame.DOUBLEBUF)
 for c,v in Colors.items():
     print (c,v)
     pygame.draw.rect(screen, v, SQUARE)# v = color value of specific key
-    pygame.image.save(screen, "Stimuli/%s.jpg" %c) # add c instead fo %s, a key in dictionary for a specific v, value
+    pygame.image.save(screen, "Stimuli/%s.jpg" %c) # adds c instead of %s, a dictionary key for a specific v, value
 
 pygame.display.flip() # allows for update of contents of the entire display
