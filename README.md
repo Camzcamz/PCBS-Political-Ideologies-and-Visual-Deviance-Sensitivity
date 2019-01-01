@@ -21,3 +21,6 @@ I have contacted the experimenters and obtained their materials (demographic, po
 3. Run " Final_Expyriment.py " for each subject.
 4. Access demographic data for all participants in " demographic.csv " file in Data folder. 
 5. Access image task data for each participant in Data folder. 
+
+## Reference ##
+Okimoto, T., & M Gromet, D. (2015). Differences in Sensitivity to Deviance Partly Explain Ideological Divides in Social Policy Support. Journal of personality and social psychology. https://doi.org/10.1037/pspp0000080
