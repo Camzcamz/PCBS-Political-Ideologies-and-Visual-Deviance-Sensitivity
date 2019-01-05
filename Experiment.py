@@ -1,11 +1,3 @@
-
-#cd Desktop/M2/AE/PCBS-master1/Project
-
-# 1. Obtained Shape Stimuli from Tyler Okimoto and stored in Stimuli
-# 2. Create Color Stimuli by running Colors.py
-# 2. Rescale all stimuli (shape and colors) to fit screen without overlapping with text by running Rescale.py
-# 3. Run Final_Expyriment.py
-
 ### IMPORT PACKAGES ###
 import expyriment
 from expyriment import design, stimuli, control, io, misc
@@ -140,7 +132,6 @@ if block_num == "0":
         exp.keyboard.wait()
         for trial in Shape.trials:
             presentation(screen_size)
-
         stimuli.TextScreen(heading = " Color Task ", text = Instructions_Color_Task).present()
         exp.keyboard.wait()
         for trial in Color.trials:
@@ -170,7 +161,6 @@ if block_num == "1":
         exp.keyboard.wait()
         for trial in Shape.trials:
             presentation(screen_size)
-
         stimuli.TextScreen(heading = " Color Task ", text = Instructions_Color_Task).present()
         exp.keyboard.wait()
         for trial in Color.trials:
@@ -181,7 +171,6 @@ if block_num == "1":
         exp.keyboard.wait()
         for trial in Color.trials:
             presentation(screen_size)
-
         stimuli.TextScreen(heading = " Shape Task ", text = Instructions_Shape_Task).present()
         exp.keyboard.wait()
         for trial in Shape.trials:
