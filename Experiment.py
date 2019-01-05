@@ -40,7 +40,7 @@ Answer_Q_7 = "1= employed, 2 = part-time, 3 = not employed, 4 = retiered, 5 = st
 Question_8 = "What is your highest degree of formal education?"
 Answer_Q_8 = "1= Elementary/Primary School, 2 = High School, 3 = University/Undergraduate Degree, 4 = Graduate Degree (Masters, PhD, LLD, MD)."
 
-#### FUNCTION ####
+############# FUNCTIONS ###################
 def create_trial(Stimulus, Type, Filenumber):
     trial = design.Trial()
     trial.set_factor("Stimulus", Stimulus)
