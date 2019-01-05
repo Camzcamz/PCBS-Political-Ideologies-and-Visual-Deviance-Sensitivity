@@ -103,7 +103,7 @@ import os.path
 
 ### OPEN DATA FILE ###
 Stim_Shape = pd.read_csv("Task_Stimuli_Shape.csv")
-Stim_Color = pd.read_csv("Task_Stimuli_Color.csv")
+Stim_Color = pd.read_csv("Task_Stimuli_Colors.csv")
 
 ### CREATE NEW DATA FILE FOR DEMOGRAPHIC INFORMATION IN DATA FOLDER ###
 DEMO = 'Data/demographics.csv'
@@ -149,18 +149,24 @@ def create_trial(Stimulus, Type, Filenumber):
     trial.add_stimulus(stimuli.Picture(Image_Stimulus))
     return trial
 
-############## BLOCKS ##############
+def stimuli_presentation (screen_size,Image_Task_Answers):
+    canvas = stimuli.Canvas(size=screen_size) #create canvas that is the the size of the screen/screen surface. Must create new canvas every time or canvases will overwrite themselves (text will become blurry)
+    trial.stimuli[0].plot(canvas)
+    stimuli.TextScreen(heading = 'Is it a {}?'.format(trial.get_factor('Stimulus')), text = Image_Task_Answers).plot(canvas) # {} replaces by desired factor
+    canvas.present() #canvas with trial and text stimuli above will be presented
+    key, rt = exp.keyboard.wait(constants.K_ALL_DIGITS)
+    exp.data.add([block_name, trial.get_factor('Stimulus'), trial.get_factor('Type'), trial.get_factor('Filenumber'), [chr(key)], key, rt]) #[chr(key)] dont get key number on keyboard but actual number pressed by participant (useful for participants with different keyboards e.g. french/chinese)
 
+############## BLOCKS ##############
 ### CREATE BLOCKS ###
 Shape = expyriment.design.Block(name = "Shape")
 Color = expyriment.design.Block(name = "Color")
-
 ### INPUT BLOCKS ###
 for i in Stim_Shape.index:
     Shape.add_trial(create_trial(Stim_Shape.get_value(i, 'Stimulus'),
                                  Stim_Shape.get_value(i, 'Type'),
                                  Stim_Shape.get_value(i, 'Filenumber')))
-    # Creates a trial using create_trial function with the value of each factors at passed column and index using the get_value
+    # Creates a trial using create_trial function with the value of each factors at passed column and index using the get_value)
 Shape.shuffle_trials() #shuffle trials so they appear in a randomized order for each participant
 exp.add_block(Shape)
 
@@ -171,7 +177,7 @@ for i in Stim_Color.index:
 Color.shuffle_trials()
 exp.add_block(Color)
 
-########### START EXPERIMENT #######
+####################### START EXPERIMENT ##########f##
 expyriment.control.start(skip_ready_screen = True) # asks for subject number available as exp.subject and creates data file available as exp.data
 exp.data_variable_names = ["Block", "Stimulus", "Type", "Filenumber", "Key Number", "Key Value", "RT"] #create column variable names for the variables that will be stored in exp.data data file using exp.add
 
@@ -197,7 +203,7 @@ if exp.subject%2 == 1:
     block_num = "0" # Even participant number
 else:
     block_num = "1" # Odd participant number
-
+    
 if block_num == "0":
     stimuli.TextScreen(heading = Question_4, text = Answer_Q_456).present()
     Answer4 = exp.keyboard.wait(constants.K_ALL_DIGITS)
@@ -217,43 +223,21 @@ if block_num == "0":
         stimuli.TextScreen(heading = " Shape Task ", text = Instructions_Shape_Task).present()
         exp.keyboard.wait()
         for trial in Shape.trials:
-            canvas = stimuli.Canvas(size=screen_size) #create canvas that is the the size of the screen/screen surface. Must create new canvas every time or canvases will overwrite themselves (text will become blurry)
-            trial.stimuli[0].plot(canvas)
-            stimuli.TextScreen(heading = 'Is it a {}?'.format(trial.get_factor('Stimulus')), text = Image_Task_Answers).plot(canvas) # {} replaces by desired factor
-            canvas.present() #canvas with trial and text stimuli above will be presented
-            key, rt = exp.keyboard.wait(constants.K_ALL_DIGITS)
-            exp.data.add([block_name, trial.get_factor('Stimulus'), trial.get_factor('Type'), trial.get_factor('Filenumber'), [chr(key)], key, rt]) #[chr(key)] dont get key number on keyboard but actual number pressed by participant (useful for participants with different keyboards e.g. french/chinese)
-
+            stimuli_presentation(screen_size,Image_Task_Answers)
         stimuli.TextScreen(heading = " Color Task ", text = Instructions_Color_Task).present()
         exp.keyboard.wait()
         for trial in Color.trials:
-            canvas = stimuli.Canvas(size=screen_size)
-            trial.stimuli[0].plot(canvas)
-            stimuli.TextScreen(heading = 'Is it {}?'.format(trial.get_factor('Stimulus')), text = Image_Task_Answers).plot(canvas)
-            canvas.present()
-            key, rt = exp.keyboard.wait(constants.K_ALL_DIGITS)
-            exp.data.add([block_name,trial.get_factor('Stimulus'), trial.get_factor('Type'), trial.get_factor('Filenumber'), [chr(key)], key, rt])
+            stimuli_presentation(screen_size,Image_Task_Answers)
 
     if block_name == "Politics Color Shape":
         stimuli.TextScreen(heading = " Shape Task ", text = Instructions_Shape_Task).present()
         exp.keyboard.wait()
         for trial in Shape.trials:
-            canvas = stimuli.Canvas(size=screen_size)
-            trial.stimuli[0].plot(canvas)
-            stimuli.TextScreen(heading = 'Is it a {}?'.format(trial.get_factor('Stimulus')), text = Image_Task_Answers).plot(canvas)
-            canvas.present()
-            key, rt = exp.keyboard.wait(constants.K_ALL_DIGITS)
-            exp.data.add([block_name, trial.get_factor('Stimulus'), trial.get_factor('Type'), trial.get_factor('Filenumber'), [chr(key)], key, rt])
-
+            stimuli_presentation(screen_size,Image_Task_Answers)
         stimuli.TextScreen(heading = " Color Task ", text = Instructions_Color_Task).present()
         exp.keyboard.wait()
         for trial in Color.trials:
-            canvas = stimuli.Canvas(size=screen_size)
-            trial.stimuli[0].plot(canvas)
-            stimuli.TextScreen(heading = 'Is it {}?'.format(trial.get_factor('Stimulus')), text = Image_Task_Answers).plot(canvas)
-            canvas.present()
-            key, rt = exp.keyboard.wait(constants.K_ALL_DIGITS)
-            exp.data.add([block_name,trial.get_factor('Stimulus'), trial.get_factor('Type'), trial.get_factor('Filenumber'), [chr(key)], key, rt])
+            stimuli_presentation(screen_size,Image_Task_Answers)
 
 if block_num == "1":
     stimuli.TextScreen(heading = " Image Task ", text = Image_Task_Instructions).present()
@@ -268,43 +252,21 @@ if block_num == "1":
         stimuli.TextScreen(heading = " Shape Task ", text = Instructions_Shape_Task).present()
         exp.keyboard.wait()
         for trial in Shape.trials:
-            canvas = stimuli.Canvas(size=screen_size)
-            trial.stimuli[0].plot(canvas)
-            stimuli.TextScreen(heading = 'Is it a {}?'.format(trial.get_factor('Stimulus')), text = Image_Task_Answers).plot(canvas)
-            canvas.present()
-            key, rt = exp.keyboard.wait(constants.K_ALL_DIGITS)
-            exp.data.add([block_name, trial.get_factor('Stimulus'), trial.get_factor('Type'), trial.get_factor('Filenumber'), [chr(key)], key, rt])
-
+            stimuli_presentation(screen_size,Image_Task_Answers)
         stimuli.TextScreen(heading = " Color Task ", text = Instructions_Color_Task).present()
         exp.keyboard.wait()
         for trial in Color.trials:
-            canvas = stimuli.Canvas(size=screen_size)
-            trial.stimuli[0].plot(canvas)
-            stimuli.TextScreen(heading = 'Is it {}?'.format(trial.get_factor('Stimulus')), text = Image_Task_Answers).plot(canvas)
-            canvas.present()
-            key, rt = exp.keyboard.wait(constants.K_ALL_DIGITS)
-            exp.data.add([block_name,trial.get_factor('Stimulus'), trial.get_factor('Type'), trial.get_factor('Filenumber'), [chr(key)], key, rt])
+            stimuli_presentation(screen_size,Image_Task_Answers)
 
     if block_name == "Color Shape Politics":
         stimuli.TextScreen(heading = " Color Task ", text = Instructions_Color_Task).present()
         exp.keyboard.wait()
         for trial in Color.trials:
-            canvas = stimuli.Canvas(size=screen_size)
-            trial.stimuli[0].plot(canvas)
-            stimuli.TextScreen(heading = 'Is it {}?'.format(trial.get_factor('Stimulus')), text = Image_Task_Answers).plot(canvas)
-            canvas.present()
-            key, rt = exp.keyboard.wait(constants.K_ALL_DIGITS)
-            exp.data.add([block_name,trial.get_factor('Stimulus'), trial.get_factor('Type'), trial.get_factor('Filenumber'), [chr(key)], key, rt])
-
+            stimuli_presentation(screen_size,Image_Task_Answers)
         stimuli.TextScreen(heading = " Shape Task ", text = Instructions_Shape_Task).present()
         exp.keyboard.wait()
         for trial in Shape.trials:
-            canvas = stimuli.Canvas(size=screen_size)
-            trial.stimuli[0].plot(canvas)
-            stimuli.TextScreen(heading = 'Is it a {}?'.format(trial.get_factor('Stimulus')), text = Image_Task_Answers).plot(canvas)
-            canvas.present()
-            key, rt = exp.keyboard.wait(constants.K_ALL_DIGITS)
-            exp.data.add([block_name, trial.get_factor('Stimulus'), trial.get_factor('Type'), trial.get_factor('Filenumber'), [chr(key)], key, rt])
+            stimuli_presentation(screen_size,Image_Task_Answers)
 
     stimuli.TextScreen(heading = Question_4, text = Answer_Q_456).present()
     Answer4 = exp.keyboard.wait(constants.K_ALL_DIGITS)
@@ -314,14 +276,14 @@ if block_num == "1":
     Answer6 = exp.keyboard.wait(constants.K_ALL_DIGITS)
 
 ######## DEMOGRAPHIC DATA OUTPUT #######
-if os.path.isfile(DEMO): #check if it is a file otherwise create it
+if os.path.isfile(DEMO): # check if it is a file otherwise create it
     demo = pd.read_csv(DEMO)
 else:
     demo = pd.DataFrame(columns = ["Subject_ID", "Answer1","Answer2", "Answer3", "Answer4","Answer5","Answer6","Answer7","Answer8"])
     #create file with demographic answers of all participants using key value and not key number
 
 current_subj = pd.DataFrame({"Subject_ID": [exp.subject],
-                             "Answer1": [chr(Answer1[0])], #add [chr([0])] otherwise will get key number but we want key value
+                             "Answer1": [chr(Answer1[0])], # add [chr(    [0])] to get key value not number
                              "Answer2": [chr(Answer3[0])],
                              "Answer3": [chr(Answer3[0])],
                              "Answer4": [chr(Answer4[0])],
@@ -337,7 +299,7 @@ expyriment.control.end(goodbye_text = "Thank you for participating!", confirmati
 ## Conclusion
 In light of my lack knowledge of python prior to this class and its intriduction to me during my first semester of M1, I spent a lot of time this semester working on my project. There are additional things that should be done to improve this experiment and that would have been interesting to code. 
 
-For instance, it would have been interesting to use auditoty typical and deviant stimuli to see if differences in political opinion also influence auditory deviance sensitivity. Moreover, while the perfect red, green and blue were chosen acording to the typical rbg code standards, ambiguous red, green, blue rbg codes were chosen by a single experimenter who personally judged these stimuli as ambiguous. This is not ideal and a scrpit that selects colors based on their distance between well established colors should be used (e.g. selecting color midway between orange and red). This should be done for lightness and saturation too. Finally, statistical anayses were not coded but could have been done on python. 
+For instance, it would have been interesting to use auditoty typical and deviant stimuli to see if differences in political opinion also influence auditory deviance sensitivity. Moreover, while the perfect red, green and blue were chosen acording to the typical rbg code standards, ambiguous red, green, blue rbg codes were chosen by a single experimenter who personally judged these stimuli as ambiguous. This is not ideal and a scrpit that selects colors based on their distance between well established colors should be used (e.g. selecting color midway between orange and red). This should be done for lightness and saturation too. Finally, statistical analyses were not coded but could have been done on python. 
 
 ## Reference
 Okimoto, T., & M Gromet, D. (2015). Differences in Sensitivity to Deviance Partly Explain Ideological Divides in Social Policy Support. Journal of personality and social psychology. https://doi.org/10.1037/pspp0000080
