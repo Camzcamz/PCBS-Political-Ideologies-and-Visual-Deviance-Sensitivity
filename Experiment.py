@@ -105,7 +105,7 @@ Answer7 = exp.keyboard.wait(constants.K_ALL_DIGITS)
 stimuli.TextScreen(heading = Question_8, text = Answer_Q_8).present()
 Answer8 = exp.keyboard.wait(constants.K_ALL_DIGITS)
 
-####################### PART 2: IMAGE TASKS ##############################
+####################### PART 2: POLITICAL IDEOLOGIES AND IMAGE TASKS ##############################
 if exp.subject%2 == 1:
     block_num = "0" # Even participant number
 else:
