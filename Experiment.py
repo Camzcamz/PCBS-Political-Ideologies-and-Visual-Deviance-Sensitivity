@@ -1,11 +1,3 @@
-
-#cd Desktop/M2/AE/PCBS-master1/Project
-
-# 1. Obtained Shape Stimuli from Tyler Okimoto and stored in Stimuli
-# 2. Create Color Stimuli by running Colors.py
-# 2. Rescale all stimuli (shape and colors) to fit screen without overlapping with text by running Rescale.py
-# 3. Run Final_Expyriment.py
-
 ### IMPORT PACKAGES ###
 import expyriment
 from expyriment import design, stimuli, control, io, misc
