@@ -48,6 +48,7 @@ Access demographic data for all participants in " demographic.csv " file in Data
 ## Experiment
 
 ## Conclusion
-
+In light of my lack knowledge of python prior to this class and its intriduction to me during my first semester of M1, I spent a lot of time this semester working on my project. There are additional things that should be done to improve this experiment and that would have been interesting to code. 
+For instance, it would have been interesting to use auditoty typical and deviant stimuli to see if differences in political opinion also influence auditory deviance sensitivity. Moreover, while the perfect red, green and blue were chosen acording to the typical rbg code standards, ambiguoug red, green, blue was chosen based on visual observation 
 ## Reference
 Okimoto, T., & M Gromet, D. (2015). Differences in Sensitivity to Deviance Partly Explain Ideological Divides in Social Policy Support. Journal of personality and social psychology. https://doi.org/10.1037/pspp0000080
