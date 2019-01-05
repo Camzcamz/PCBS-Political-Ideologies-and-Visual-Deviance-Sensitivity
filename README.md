@@ -33,8 +33,10 @@ I have contacted the experimenters and obtained their materials (demographic, po
 ## Stimuli Preparation ##
 
 ### Shapes Stimuli 
+The first step was obtaining by email and renaming the shape stimuli obtainedby Okimoto and colleagues (2015), which was then stored in the Stimuli folder. 
 
 ### Color Stimuli 
+The second step was creating the color stimuli with colors chosen from //www.htmlcsscolor.com/hex/00FF6D and using the following script `Colors.py`:
 
 ### Rescale Stimuli 
 
