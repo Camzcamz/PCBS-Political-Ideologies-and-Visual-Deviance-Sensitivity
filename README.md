@@ -23,7 +23,7 @@ I have contacted the experimenters and obtained their materials (demographic, po
     - [Stimuli Preparation](#Stimuli-Preparation)
         - [Shapes Stimuli](#Shapes-Stimuli)
         - [Shapes Experimental List](#Shapes-Experimental-List)
-        - [Color Stimuli and Experimental List](#Colors-Stimuli-and-Experimental-List)
+        - [Color Stimuli and Experimental List](#Color-Stimuli-and-Experimental-List)
         - [Rescale Stimuli](#Color-Stimuli)
     - [Experiment](#Experiment)
     - [Conclusion](#conclusion)
