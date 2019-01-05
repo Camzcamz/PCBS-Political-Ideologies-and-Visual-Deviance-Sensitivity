@@ -19,10 +19,11 @@ I have contacted the experimenters and obtained their materials (demographic, po
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
-- [Lexical Decision Experiment](#lexical-decision-experiment)
+- [Political Ideologies and Visual Deviance Sensitivity](#Political-Ideologies-and-Visual-Deviance-Sensitivity)
     - [Stimuli Preparation](#Stimuli-Preparation)
-        - [Shapes Stimuli and Experimental List](#Shapes-Stimuli)
-        - [Color Stimuli and Experimental List](#Color-Stimuli)
+        - [Shapes Stimuli] (#Shapes-Stimuli)
+        - [Shapes Experimental List](#Shapes-Experimental-List)
+        - [Color Stimuli and Experimental List] (#Colors-Stimuli-and-Experimental-List)
         - [Rescale Stimuli](#Color-Stimuli)
     - [Experiment](#Experiment)
     - [Conclusion](#conclusion)
@@ -34,21 +35,22 @@ I have contacted the experimenters and obtained their materials (demographic, po
 
 ### Shapes Stimuli 
 The first step was obtaining by email and renaming the shape stimuli obtainedby Okimoto and colleagues (2015), which was then stored in the Stimuli folder. 
+### Shapes Experimental List 
+From the Stimuli data file the shapes experimental list was created using ` ` and stored as'Task_Stimuli_Shape.csv'.
 
 ### Color Stimuli 
-The second step was creating the color stimuli with colors chosen from //www.htmlcsscolor.com/hex/00FF6D and using the following script `Colors.py`:
+The second step was creating the color stimuli with colors chosen from //www.htmlcsscolor.com/hex/00FF6D based on the experimenter's observation of color ambiguity for red, blue, and green. Saturation and lightness was maintained to focus on sensitivity to hues. The following script `Colors.py` was used to generate the coor stimuli and the second part to create the color experimental list 'Task_Stimuli_Color.csv':
 
 ### Rescale Stimuli 
-
-### Experimental Lists 
-Task Stimuli List 
-
-Access demographic data for all participants in " demographic.csv " file in Data folder. Access image task data for each participant in Data folder. 
+To have the text above the image the stimuli had to be resized. All images were similarly resized with the script `Rescale.py`:
 
 ## Experiment
+The experiment was run using the following script (`Final_Expyriment.py`), which stored the demographic data for all participants in " demographic.csv " file in Data folder and the image task data for each participant in Data folder.
 
 ## Conclusion
 In light of my lack knowledge of python prior to this class and its intriduction to me during my first semester of M1, I spent a lot of time this semester working on my project. There are additional things that should be done to improve this experiment and that would have been interesting to code. 
-For instance, it would have been interesting to use auditoty typical and deviant stimuli to see if differences in political opinion also influence auditory deviance sensitivity. Moreover, while the perfect red, green and blue were chosen acording to the typical rbg code standards, ambiguoug red, green, blue was chosen based on visual observation 
+
+For instance, it would have been interesting to use auditoty typical and deviant stimuli to see if differences in political opinion also influence auditory deviance sensitivity. Moreover, while the perfect red, green and blue were chosen acording to the typical rbg code standards, ambiguous red, green, blue rbg codes were chosen by a single experimenter who personally judged these stimuli as ambiguous. This is not ideal and a scrpit that selects colors based on their distance between well established colors should be used (e.g. selecting color midway between orange and red). This should be done for lightness and saturation too.  
+
 ## Reference
 Okimoto, T., & M Gromet, D. (2015). Differences in Sensitivity to Deviance Partly Explain Ideological Divides in Social Policy Support. Journal of personality and social psychology. https://doi.org/10.1037/pspp0000080
