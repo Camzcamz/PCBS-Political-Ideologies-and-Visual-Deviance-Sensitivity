@@ -38,7 +38,7 @@ The first step was obtaining by email and renaming the shape stimuli obtainedby 
 ### Shapes Experimental List 
 From the Stimuli data file the shapes experimental list was created using ` ` and stored as'Task_Stimuli_Shape.csv'.
 
-### Color Stimuli 
+### Color Stimuli and Experimental List
 The second step was creating the color stimuli with colors chosen from //www.htmlcsscolor.com/hex/00FF6D based on the experimenter's observation of color ambiguity for red, blue, and green. Saturation and lightness was maintained to focus on sensitivity to hues. The following script `Colors.py` was used to generate the coor stimuli and the second part to create the color experimental list 'Task_Stimuli_Color.csv':
 
 ```
