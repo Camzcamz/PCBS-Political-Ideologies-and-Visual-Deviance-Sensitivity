@@ -1,4 +1,4 @@
-AE Project: The Influence of Political Opinion on Visual Deviance Sensitivity
+AE Project: Political Ideologies and Visual Deviance Sensitivity
 ============================================================================================
 ## Introduction 
 
@@ -41,6 +41,8 @@ I have contacted the experimenters and obtained their materials (demographic, po
 Task Stimuli List 
 
 Access demographic data for all participants in " demographic.csv " file in Data folder. Access image task data for each participant in Data folder. 
+
+## Conclusion ##
 
 ## Reference ##
 Okimoto, T., & M Gromet, D. (2015). Differences in Sensitivity to Deviance Partly Explain Ideological Divides in Social Policy Support. Journal of personality and social psychology. https://doi.org/10.1037/pspp0000080
