@@ -1,6 +1,3 @@
-
-#cd Desktop/M2/AE/PCBS-master1/Project
-### IMPORT PACKAGES ###
 import expyriment
 from expyriment import design, stimuli, control, io, misc
 from expyriment.misc import constants
