@@ -1,4 +1,4 @@
-######## Generate Color Stimuli Data File #######
+######## Generate Stimuli Data Files #######
 import csv, os, glob
 
 with open('Task_Stimuli_Color.csv', 'w') as csvfile:
