@@ -109,7 +109,7 @@ for image in glob.glob('Stimuli_Shapes/*.jpg'): #Glob does not take regular expr
 ```
 
 ## Experiment
-The experiment was run using the following script `Expyriment.py`, which stored the demographic data for all participants in " demographic.csv " file in Data folder and the image task data for each participant in Data folder.
+The experiment was run using the following script `Experiment.py`, which stored the demographic data for all participants in " demographic.csv " file in Data folder and the image task data for each participant in Data folder.
 
 The experiment had four conditions that differed in order of presentation of the image task and the political ideology questions. Each participant does one of the following conditions, based on their participant number:
 (i) political opinion, then shape image task, then color image task 
@@ -316,9 +316,9 @@ demo.to_csv(DEMO, index = False) # False index so index doesn't appear in demogr
 expyriment.control.end(goodbye_text = "Thank you for participating!", confirmation = False, goodbye_delay = 1000)
 ```
 ## Conclusion
-In light of my lack knowledge of python prior to this class and its intriduction to me during my first semester of M1, I spent a lot of time this semester working on my project. There are additional things that should be done to improve this experiment and that would have been interesting to code. 
+In light of my lack knowledge of python prior to this class and its introduction during my first semester of M1, I spent a lot of time this semester working on my project. There are additional things that should be done to improve this experiment and that would have been interesting to code. 
 
-For instance, it would have been interesting to use auditory perfect and deviant stimuli to see if differences in political opinion also influence auditory deviance sensitivity. Moreover, while the perfect red, green and blue were chosen acording to the typical rbg code standards, ambiguous red, green, blue rbg codes were chosen by a single experimenter who personally judged these stimuli as ambiguous. This is not ideal and a scrpit that selects colors based on their distance between well established colors should be used (e.g. selecting color midway between orange and red). This should be done for lightness and saturation too. Finally, statistical analyses were not coded but could have been done on python. 
+For instance, it would have been interesting to use auditory perfect and deviant stimuli to see if differences in political opinion also influence auditory deviance sensitivity. Moreover, while the perfect red, green and blue were chosen acording to the typical rbg code standards, ambiguous red, green, blue rbg codes were chosen by a single experimenter who personally judged these stimuli as ambiguous. This is not ideal and a script that selects colors based on their distance between well established colors should be used (e.g. selecting color midway between orange and red). This should be done for lightness and saturation too. Finally, statistical analyses were not coded but could have been done on python.
 
 ## Reference
 Okimoto, T., & M Gromet, D. (2015). Differences in Sensitivity to Deviance Partly Explain Ideological Divides in Social Policy Support. Journal of personality and social psychology. https://doi.org/10.1037/pspp0000080
