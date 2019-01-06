@@ -21,24 +21,22 @@ I have contacted the experimenters and obtained their materials (demographic, po
 
 - [Political Ideologies and Visual Deviance Sensitivity](#Political-Ideologies-and-Visual-Deviance-Sensitivity)
     - [Stimuli Preparation](#Stimuli-Preparation)
-        - [Shapes Stimuli](#Shapes-Stimuli)
-        - [Shapes Experimental List](#Shapes-Experimental-List)
-        - [Color Stimuli and Experimental List](#Color-Stimuli-and-Experimental-List)
-        - [Rescale Stimuli](#Color-Stimuli)
+        - [Shape Stimuli](#Shape-Stimuli)
+        - [Color Stimuli](#Color-Stimuli)
+        - [Experimental Lists](#Experimental-Lists)
+        - [Rescale Stimuli](#Rescale-Stimuli)
     - [Experiment](#Experiment)
     - [Conclusion](#conclusion)
     - [Reference](#reference)
 
 <!-- markdown-toc end -->
 
-## Stimuli Preparation ##
+## Stimuli Preparation 
 
-### Shapes Stimuli 
-The first step was obtaining by email and renaming the shape stimuli obtainedby Okimoto and colleagues (2015), which was then stored in the Stimuli folder. 
-### Shapes Experimental List 
-From the Stimuli data file the shapes experimental list was created using ` ` and stored as'Task_Stimuli_Shape.csv'.
+### Shape Stimuli 
+The first step was obtaining by email and renaming the shape stimuli obtainedby Okimoto and colleagues (2015), which was then stored in the Stimuli_Shapes folder. 
 
-### Color Stimuli and Experimental List
+### Color Stimuli
 The second step was creating the color stimuli with colors chosen from //www.htmlcsscolor.com/hex/00FF6D based on the experimenter's observation of color ambiguity for red, blue, and green. Saturation and lightness was maintained to focus on sensitivity to hues. The following script `Colors.py` was used to generate the coor stimuli and the second part to create the color experimental list 'Task_Stimuli_Color.csv':
 
 ```
@@ -61,16 +59,49 @@ for c,v in Colors.items():
     pygame.image.save(screen, "Stimuli/%s.jpg" %c) # adds c instead of %s, a dictionary key for a specific v, value
 pygame.display.flip() # allows for update of contents of the entire display
 ```
+### Experimental Lists
+The third step was generating the experimental lists for each image task: color (Task_Stimuli_Color.csv) and shape (Task_Stimuli_Shape.csv) based on the names of the stimuli using the following script `Exprimental_Lists.py`:
+
+```
+import csv, os, glob
+
+with open('Task_Stimuli_Color.csv', 'w') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(["Stimulus", "Type","Filenumber"])
+    for filename in glob.glob('Stimuli_Colors/*.jpg'): #Glob does not take regular expressions but takes * which corresponds to 'anything' afterwards
+        filename = os.path.basename(filename) # remove folder
+        basename, ext = os.path.splitext(filename) # remove extension
+        stimuli, type, filenumber = basename.split() # split into 3 columns
+        filename = stimuli, type, filenumber
+        writer.writerow(filename)
+
+with open('Task_Stimuli_Shape.csv', 'w') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(["Stimulus", "Type","Filenumber"])
+    for filename in glob.glob('Stimuli_Shapes/*.jpg'): #Glob does not take regular expressions but takes * which corresponds to 'anything' afterwards
+        filename = os.path.basename(filename) # remove folder
+        basename, ext = os.path.splitext(filename) # remove extension
+        stimuli, type, filenumber = basename.split() # split into 3 columns
+        filename = stimuli, type, filenumber
+        writer.writerow(filename)
+```
 
 ### Rescale Stimuli 
-To have the text above the image the stimuli had to be resized. All images were similarly resized with the script `Rescale.py`:
+To have the text above the image the stimuli had to be resized. All images were similarly resized with the script `Rescale.py` and storde in the Stimuli_Resize folder:
 ```
 import glob
 import os.path
 from PIL import Image
 from resizeimage import resizeimage
 
-for image in glob.glob('Stimuli/*.jpg'): #Glob does not take regular expressions but takes * which corresponds to 'anything' afterwards
+for image in glob.glob('Stimuli_Colors/*.jpg'): #Glob does not take regular expressions but takes * which corresponds to 'anything' afterwards
+    img = Image.open(image)
+    img = resizeimage.resize_contain(img, [355, 355]) #resize contain does not crop your image but rescales it while keeping initial proportions to desired scale indicated by [ , ]
+    img_output = 'Stimuli_Resize/'+ os.path.basename(image) # store new files in different folder but maintain name by adding basename of initial image path (e.g. initial imag path = 'Stimuli/Red.jpg', basename = 'Red.jpg')
+    img.save(img_output, img.format) #save new image with new path and in same format as img (e.g. jpg)
+
+
+for image in glob.glob('Stimuli_Shapes/*.jpg'): #Glob does not take regular expressions but takes * which corresponds to 'anything' afterwards
     img = Image.open(image)
     img = resizeimage.resize_contain(img, [355, 355]) #resize contain does not crop your image but rescales it while keeping initial proportions to desired scale indicated by [ , ]
     img_output = 'Stimuli_Resize/'+ os.path.basename(image) # store new files in different folder but maintain name by adding basename of initial image path (e.g. initial imag path = 'Stimuli/Red.jpg', basename = 'Red.jpg')
@@ -78,7 +109,7 @@ for image in glob.glob('Stimuli/*.jpg'): #Glob does not take regular expressions
 ```
 
 ## Experiment
-The experiment was run using the following script (`Final_Expyriment.py`), which stored the demographic data for all participants in " demographic.csv " file in Data folder and the image task data for each participant in Data folder.
+The experiment was run using the following script `Expyriment.py`, which stored the demographic data for all participants in " demographic.csv " file in Data folder and the image task data for each participant in Data folder.
 
 The experiment had four conditions that differed in order of presentation of the image task and the political ideology questions. Each participant does one of the following conditions, based on their participant number:
 (i) political opinion, then shape image task, then color image task 
@@ -112,7 +143,7 @@ Demographic_Task_Instructions = "In PART 1, you will be asked to answer some gen
 Image_Task_Instructions = "In PART 2, you will be asked to judge shapes and colors. Press any key to continue."
 Instructions_Shape_Task = "You will be shown several shapes and you will be asked to evaluate each shape. Press any key to start."
 Instructions_Color_Task = "You will be shown several colors and you will be asked to evaluate each color. Press any key to start."
-Image_Task_Answers = "Please select between 1 and 5, with 1 = definitely yes, 2 = mostly yes, 3  = neither yes nor no,  4 = mostly no, 5 = definitely no."
+Image_Task_Answer = "Please select between 1 and 5, with 1 = definitely yes, 2 = mostly yes, 3  = neither yes nor no,  4 = mostly no, 5 = definitely no."
 
 Question_1 = "Press f if you are a female, m for male, o for other."
 Question_2 = "How old are you?"
@@ -141,18 +172,27 @@ def create_trial(Stimulus, Type, Filenumber):
     trial.add_stimulus(stimuli.Picture(Image_Stimulus))
     return trial
 
-def stimuli_presentation (screen_size,Image_Task_Answers):
+def stimulus_question_presentation (Answer):
     canvas = stimuli.Canvas(size=screen_size) #create canvas that is the the size of the screen/screen surface. Must create new canvas every time or canvases will overwrite themselves (text will become blurry)
     trial.stimuli[0].plot(canvas)
-    stimuli.TextScreen(heading = 'Is it a {}?'.format(trial.get_factor('Stimulus')), text = Image_Task_Answers).plot(canvas) # {} replaces by desired factor
+    stimuli.TextScreen(heading = 'Is it a {}?'.format(trial.get_factor('Stimulus')), text = Answer).plot(canvas) # {} replaces by desired factor
     canvas.present() #canvas with trial and text stimuli above will be presented
     key, rt = exp.keyboard.wait(constants.K_ALL_DIGITS)
     exp.data.add([block_name, trial.get_factor('Stimulus'), trial.get_factor('Type'), trial.get_factor('Filenumber'), [chr(key)], key, rt]) #[chr(key)] dont get key number on keyboard but actual number pressed by participant (useful for participants with different keyboards e.g. french/chinese)
 
+def political_ideology_questions (Question_A, Question_B, Question_C, Answer_Question):
+    stimuli.TextScreen(heading = Question_A, text = Answer_Question).present()
+    Answer4 = exp.keyboard.wait(constants.K_ALL_DIGITS)
+    stimuli.TextScreen(heading = Question_B, text = Answer_Question).present()
+    Answer5 = exp.keyboard.wait(constants.K_ALL_DIGITS)
+    stimuli.TextScreen(heading = Question_C, text = Answer_Question).present()
+    Answer6 = exp.keyboard.wait(constants.K_ALL_DIGITS)
 ############## BLOCKS ##############
+
 ### CREATE BLOCKS ###
 Shape = expyriment.design.Block(name = "Shape")
 Color = expyriment.design.Block(name = "Color")
+
 ### INPUT BLOCKS ###
 for i in Stim_Shape.index:
     Shape.add_trial(create_trial(Stim_Shape.get_value(i, 'Stimulus'),
@@ -195,14 +235,9 @@ if exp.subject%2 == 1:
     block_num = "0" # Even participant number
 else:
     block_num = "1" # Odd participant number
-    
+
 if block_num == "0":
-    stimuli.TextScreen(heading = Question_4, text = Answer_Q_456).present()
-    Answer4 = exp.keyboard.wait(constants.K_ALL_DIGITS)
-    stimuli.TextScreen(heading = Question_5, text = Answer_Q_456).present()
-    Answer5 = exp.keyboard.wait(constants.K_ALL_DIGITS)
-    stimuli.TextScreen(heading = Question_6, text = Answer_Q_456).present()
-    Answer6 = exp.keyboard.wait(constants.K_ALL_DIGITS)
+    political_ideology_questions (Question_4, Question_5, Question_6, Answer_Q_456)
     stimuli.TextScreen(heading = " Image Task ", text = Image_Task_Instructions).present()
     exp.keyboard.wait()
 
@@ -215,21 +250,20 @@ if block_num == "0":
         stimuli.TextScreen(heading = " Shape Task ", text = Instructions_Shape_Task).present()
         exp.keyboard.wait()
         for trial in Shape.trials:
-            stimuli_presentation(screen_size,Image_Task_Answers)
+            stimulus_question_presentation (Image_Task_Answer)
         stimuli.TextScreen(heading = " Color Task ", text = Instructions_Color_Task).present()
         exp.keyboard.wait()
         for trial in Color.trials:
-            stimuli_presentation(screen_size,Image_Task_Answers)
-
+            stimulus_question_presentation (Image_Task_Answer)
     if block_name == "Politics Color Shape":
         stimuli.TextScreen(heading = " Shape Task ", text = Instructions_Shape_Task).present()
         exp.keyboard.wait()
         for trial in Shape.trials:
-            stimuli_presentation(screen_size,Image_Task_Answers)
+            stimulus_question_presentation (Image_Task_Answer)
         stimuli.TextScreen(heading = " Color Task ", text = Instructions_Color_Task).present()
         exp.keyboard.wait()
         for trial in Color.trials:
-            stimuli_presentation(screen_size,Image_Task_Answers)
+            stimulus_question_presentation (Image_Task_Answer)
 
 if block_num == "1":
     stimuli.TextScreen(heading = " Image Task ", text = Image_Task_Instructions).present()
@@ -244,28 +278,21 @@ if block_num == "1":
         stimuli.TextScreen(heading = " Shape Task ", text = Instructions_Shape_Task).present()
         exp.keyboard.wait()
         for trial in Shape.trials:
-            stimuli_presentation(screen_size,Image_Task_Answers)
+            stimulus_question_presentation (Image_Task_Answer)
         stimuli.TextScreen(heading = " Color Task ", text = Instructions_Color_Task).present()
         exp.keyboard.wait()
         for trial in Color.trials:
-            stimuli_presentation(screen_size,Image_Task_Answers)
-
+            stimulus_question_presentation (Image_Task_Answer)
     if block_name == "Color Shape Politics":
         stimuli.TextScreen(heading = " Color Task ", text = Instructions_Color_Task).present()
         exp.keyboard.wait()
         for trial in Color.trials:
-            stimuli_presentation(screen_size,Image_Task_Answers)
+            stimulus_question_presentation (Image_Task_Answer)
         stimuli.TextScreen(heading = " Shape Task ", text = Instructions_Shape_Task).present()
         exp.keyboard.wait()
         for trial in Shape.trials:
-            stimuli_presentation(screen_size,Image_Task_Answers)
-
-    stimuli.TextScreen(heading = Question_4, text = Answer_Q_456).present()
-    Answer4 = exp.keyboard.wait(constants.K_ALL_DIGITS)
-    stimuli.TextScreen(heading = Question_5, text = Answer_Q_456).present()
-    Answer5 = exp.keyboard.wait(constants.K_ALL_DIGITS)
-    stimuli.TextScreen(heading = Question_6, text = Answer_Q_456).present()
-    Answer6 = exp.keyboard.wait(constants.K_ALL_DIGITS)
+            stimulus_question_presentation (Image_Task_Answer)
+    political_ideology_questions (Question_4, Question_5, Question_6, Answer_Q_456)
 
 ######## DEMOGRAPHIC DATA OUTPUT #######
 if os.path.isfile(DEMO): # check if it is a file otherwise create it
