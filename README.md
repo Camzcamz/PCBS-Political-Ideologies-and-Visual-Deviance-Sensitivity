@@ -20,12 +20,12 @@ I have contacted the experimenters and obtained their materials (demographic, po
 **Table of Contents**
 
 - [Political Ideologies and Visual Deviance Sensitivity](#Political-Ideologies-and-Visual-Deviance-Sensitivity)
-    - [Stimuli Preparation](#Stimuli-Preparation)
-        - [Shape Stimuli](#Shape-Stimuli)
-        - [Color Stimuli](#Color-Stimuli)
-        - [Experimental Lists](#Experimental-Lists)
-        - [Rescale Stimuli](#Rescale-Stimuli)
-    - [Experiment](#Experiment)
+    - [Stimuli Preparation](#stimuli-preparation)
+        - [Shape Stimuli](#shape-stimuli)
+        - [Color Stimuli](#color-stimuli)
+        - [Experimental Lists](#experimental-lists)
+        - [Rescale Stimuli](#rescale-stimuli)
+    - [Experiment](#experiment)
     - [Conclusion](#conclusion)
     - [Reference](#reference)
 
