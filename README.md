@@ -226,8 +226,6 @@ Answer1 = exp.keyboard.wait(constants.K_ALL_LETTERS) #press on any letter key
 stimuli.TextScreen(heading = Question_2, text = 'Press spacebar to enter your age (example: 26) and then press enter to move to the next question.').present()
 exp.keyboard.wait()
 Answer2 = Answer_Q2.get() #get input from io.TextInput("") (example here: numeric age of participant)
-print(Answer2)
-print(Answer2)
 stimuli.TextScreen(heading = Question_3, text = Answer_Q_3).present()
 Answer3 = exp.keyboard.wait(constants.K_ALL_DIGITS) #press on any digit key
 stimuli.TextScreen(heading = Question_7, text = Answer_Q_7).present()
