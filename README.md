@@ -41,22 +41,24 @@ The second step was creating the color stimuli with colors chosen from //www.htm
 
 ```
 import pygame
+
 ## Define color parameters ##
 Colors = {'Green Perfect 0':(0, 255, 0), 'Green Ambiguous 0': (0, 255, 176), 'Green Ambiguous 1': (195, 255, 0), 'Green Ambiguous 2': (218, 255, 0), 'Green Ambiguous 3': (0, 255, 109), 'Red Perfect 0':(255,0, 0), 'Red Ambiguous 0':(255,79, 0), 'Red Ambiguous 1':(255,70, 0), 'Red Ambiguous 2':(255,0, 68), 'Red Ambiguous 3':(255,0, 79), 'Blue Perfect 0':(0, 0, 255), 'Blue Ambiguous 0':(0, 255, 244), 'Blue Ambiguous 1':(0, 255, 199), 'Blue Ambiguous 2':(49, 0, 255), 'Blue Ambiguous 3':(82, 0, 255)}
+
 ## Define Screen parameters##
 W, H = 600, 600
+
 ## Define Square parameters ##
 width, height = 600, 600
 left, top = (W-width)/2, (H-height)/2
 SQUARE = pygame.Rect(left, top, width, height) #takes four parameters even if you want a square
-# start
+
 pygame.init()
-screen = pygame.display.set_mode((W, H), pygame.DOUBLEBUF)
-# no need her to define BG color or screen.fill( )
+screen = pygame.display.set_mode((W, H), pygame.DOUBLEBUF) # no need her to define BG color or screen.fill( )
 for c,v in Colors.items():
     print (c,v)
     pygame.draw.rect(screen, v, SQUARE)# v = color value of specific key
-    pygame.image.save(screen, "Stimuli/%s.jpg" %c) # adds c instead of %s, a dictionary key for a specific v, value
+    pygame.image.save(screen, "Stimuli_Colors/%s.jpg" %c) # adds c instead of %s, a dictionary key for a specific v, value
 pygame.display.flip() # allows for update of contents of the entire display
 ```
 ### Experimental Lists
@@ -65,7 +67,7 @@ The third step was generating the experimental lists for each image task: color 
 ```
 import csv, os, glob
 
-with open('Task_Stimuli_Color.csv', 'w') as csvfile:
+with open('Task_Stimuli_Colors.csv', 'w') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(["Stimulus", "Type","Filenumber"])
     for filename in glob.glob('Stimuli_Colors/*.jpg'): #Glob does not take regular expressions but takes * which corresponds to 'anything' afterwards
@@ -75,7 +77,7 @@ with open('Task_Stimuli_Color.csv', 'w') as csvfile:
         filename = stimuli, type, filenumber
         writer.writerow(filename)
 
-with open('Task_Stimuli_Shape.csv', 'w') as csvfile:
+with open('Task_Stimuli_Shapes.csv', 'w') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(["Stimulus", "Type","Filenumber"])
     for filename in glob.glob('Stimuli_Shapes/*.jpg'): #Glob does not take regular expressions but takes * which corresponds to 'anything' afterwards
@@ -83,7 +85,6 @@ with open('Task_Stimuli_Shape.csv', 'w') as csvfile:
         basename, ext = os.path.splitext(filename) # remove extension
         stimuli, type, filenumber = basename.split() # split into 3 columns
         filename = stimuli, type, filenumber
-        writer.writerow(filename)
 ```
 
 ### Rescale Stimuli 
@@ -125,7 +126,7 @@ import pandas as pd
 import os.path
 
 ### OPEN DATA FILE ###
-Stim_Shape = pd.read_csv("Task_Stimuli_Shape.csv")
+Stim_Shape = pd.read_csv("Task_Stimuli_Shapes.csv")
 Stim_Color = pd.read_csv("Task_Stimuli_Colors.csv")
 
 ### CREATE NEW DATA FILE FOR DEMOGRAPHIC INFORMATION IN DATA FOLDER ###
@@ -187,6 +188,8 @@ def political_ideology_questions (Question_A, Question_B, Question_C, Answer_Que
     Answer5 = exp.keyboard.wait(constants.K_ALL_DIGITS)
     stimuli.TextScreen(heading = Question_C, text = Answer_Question).present()
     Answer6 = exp.keyboard.wait(constants.K_ALL_DIGITS)
+    return Answer4, Answer5, Answer6
+
 ############## BLOCKS ##############
 
 ### CREATE BLOCKS ###
@@ -223,6 +226,8 @@ Answer1 = exp.keyboard.wait(constants.K_ALL_LETTERS) #press on any letter key
 stimuli.TextScreen(heading = Question_2, text = 'Press spacebar to enter your age (example: 26) and then press enter to move to the next question.').present()
 exp.keyboard.wait()
 Answer2 = Answer_Q2.get() #get input from io.TextInput("") (example here: numeric age of participant)
+print(Answer2)
+print(Answer2)
 stimuli.TextScreen(heading = Question_3, text = Answer_Q_3).present()
 Answer3 = exp.keyboard.wait(constants.K_ALL_DIGITS) #press on any digit key
 stimuli.TextScreen(heading = Question_7, text = Answer_Q_7).present()
@@ -237,7 +242,7 @@ else:
     block_num = "1" # Odd participant number
 
 if block_num == "0":
-    political_ideology_questions (Question_4, Question_5, Question_6, Answer_Q_456)
+    Answer4, Answer5, Answer6 = political_ideology_questions (Question_4, Question_5, Question_6, Answer_Q_456)
     stimuli.TextScreen(heading = " Image Task ", text = Image_Task_Instructions).present()
     exp.keyboard.wait()
 
@@ -292,7 +297,7 @@ if block_num == "1":
         exp.keyboard.wait()
         for trial in Shape.trials:
             stimulus_question_presentation (Image_Task_Answer)
-    political_ideology_questions (Question_4, Question_5, Question_6, Answer_Q_456)
+    Answer4, Answer5, Answer6 = political_ideology_questions (Question_4, Question_5, Question_6, Answer_Q_456)
 
 ######## DEMOGRAPHIC DATA OUTPUT #######
 if os.path.isfile(DEMO): # check if it is a file otherwise create it
@@ -302,8 +307,8 @@ else:
     #create file with demographic answers of all participants using key value and not key number
 
 current_subj = pd.DataFrame({"Subject_ID": [exp.subject],
-                             "Answer1": [chr(Answer1[0])], # add [chr(    [0])] to get key value not number
-                             "Answer2": [chr(Answer3[0])],
+                             "Answer1": [chr(Answer1[0])], # add [chr([0])] to get key value not number
+                             "Answer2": (Answer2),
                              "Answer3": [chr(Answer3[0])],
                              "Answer4": [chr(Answer4[0])],
                              "Answer5": [chr(Answer5[0])],
