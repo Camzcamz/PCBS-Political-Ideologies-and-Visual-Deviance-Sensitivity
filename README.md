@@ -73,7 +73,7 @@ The third step was generating the experimental lists for each image task: color 
 ```
 import csv, os, glob
 
-def create_stim_file (filename, stim_path):
+def create_stim_list (filename, stim_path):
     with open(filename, 'w') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(["Stimulus", "Type","Filenumber"])
@@ -84,8 +84,9 @@ def create_stim_file (filename, stim_path):
             filename = stimuli, type, filenumber
             writer.writerow(filename)
 
-create_stim_file ('Task_Stimuli_Colors.csv', 'Stimuli_Colors/*.jpg')
-create_stim_file ('Task_Stimuli_Shapes.csv', 'Stimuli_Shapes/*.jpg')
+create_stim_list ('Task_Stimuli_Colors.csv', 'Stimuli_Colors/*.jpg')
+create_stim_list ('Task_Stimuli_Shapes.csv', 'Stimuli_Shapes/*.jpg')
+
 ```
 
 ### Rescale Stimuli 
