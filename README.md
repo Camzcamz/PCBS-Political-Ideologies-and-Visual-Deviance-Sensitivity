@@ -333,7 +333,5 @@ I worked for a very long time on this project because I started working on it ve
 
 Finally, I enjoyed the class because I learned a lot and feel as though I accomplished something that I am proud of considering my starting point. However, I'll be working on structural equation modelling on RStudio now (and should continue to do so in the following years) so I'm not too sure the extent to which learning to program with expyriment will be useful to me in the future. However, you said that python could was also great for statistics, which means that it could be pertinent for what I'm doing. It's too bad we didn't have enough time to also do more statistics than descriptives, but I understand that we don't have that much time, and can't learn everything in one class. If you really think python is better to do some statistics than Rstudio I think this would be very valuable to share during the upcoming inter-semestre. We would then learn a bit a bout R and python!  
 
-Thanks for teaching :) 
-
 ## Reference
 Okimoto, T., & M Gromet, D. (2015). Differences in Sensitivity to Deviance Partly Explain Ideological Divides in Social Policy Support. Journal of personality and social psychology. https://doi.org/10.1037/pspp0000080
