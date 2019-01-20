@@ -28,7 +28,8 @@ N.B. This repository already includes files generated from `Colors.py`, `Experim
         - [Experimental Lists](#experimental-lists)
         - [Rescale Stimuli](#rescale-stimuli)
     - [Experiment](#experiment)
-    - [Conclusion](#conclusion)
+    - [Future Directions](#future-directions)
+    - [Experience and Class Review](#experience-and-class-review)
     - [Reference](#reference)
 
 <!-- markdown-toc end -->
@@ -325,7 +326,7 @@ expyriment.control.end(goodbye_text = "Thank you for participating!", confirmati
 ## Future Directions
 There are additional things that should be done to improve this experiment and that would have been interesting to code. For instance, it would have been interesting to use auditory perfect and deviant stimuli to see if differences in political opinion also influence auditory deviance sensitivity. Moreover, while the perfect red, green and blue were chosen acording to the typical rbg code standards, ambiguous red, green, blue rbg codes were chosen by a single experimenter who personally judged these stimuli as ambiguous. This is not ideal and a script that selects colors based on their distance between well established colors should be used (e.g. selecting color midway between orange and red). This should be done for lightness and saturation too. Finally, statistical analyses were not coded but could have been done on python.
 
-## Experience & Class Review 
+## Experience and Class Review 
 I had a negligable amount of knowledge of python prior to this class (e.g. I knew what loops were but could not program them) and had run (not coded) Matlab for my experiments during my bachelors and then Eprime for my M1. Python was introduced to me during the first week of september at the cogmaster in 2017. I think that it would have been helpful to attend the python classes this year in september because I had forgotten the little we had previously learned even if I tried to review some concepts with Code Academy. I definitely lacked knowledge some of my classmates obtained from  this year's review month (e.g. What is Spyder, pandas...). The september python review classes should be strongly recommended to students in M2 that already took them in M1 but couldn't take AE in M1.
 
 I worked for a very long time on this project because I started working on it very early in the semester and because I find it easier to learn new programs (python and expyriment) with a bigger goal than small exercises. I think the small exercices were helpful to get started but I learned much more and more easily once you started showing us experiments with expyriment. I think that my biggest difficulty was learning to use expyriment because I didn't find their online documentation very helpful for novices. I definitely learned the most from trial and error as I programed the experiment, from your class, and from my questions on slack. It's hard to say everything I learned since I would have to list too many things, as I've had 0 coding experience before (without even counting what we learnt in class, everything you see here is something I previously didn't know how to do). I don't really know why most people didn't use slack but I think that teachers and students are simultaneously discovering these platforms, which takes a bit of time to start using and see its advantages. 
