@@ -14,7 +14,6 @@ width, height = 600, 600
 left, top = (W-width)/2, (H-height)/2
 SQUARE = pygame.Rect(left, top, width, height) #takes four parameters even if you want a square
 
-# start
 pygame.init()
 screen = pygame.display.set_mode((W, H), pygame.DOUBLEBUF)
 
