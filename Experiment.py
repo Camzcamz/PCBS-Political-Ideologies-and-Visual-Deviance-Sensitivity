@@ -12,9 +12,9 @@ Stim_Color = pd.read_csv("Task_Stimuli_Colors.csv")
 DEMO = 'Data/demographics.csv'
 
 ### EXPERIMENTAL DESIGN ####
-exp = design.Experiment("Task") #create new experiment object by calling expyriment class in submodule design and naming it
-control.initialize(exp) #starts countdown, sets up experimental clock, creates the screen (exp.screen), creates and event file (exp.events)and presents the preparing expyriment screen_size
-screen_size = exp.screen.surface.get_size() #get_screen size of the screen surface
+exp = design.Experiment("Task") #create and name new exp object
+control.initialize(exp) #starts countdown, sets up experimental clock, creates the screen (exp.screen), creates and event file (exp.events) and presents the preparing expyriment screen_size
+screen_size = exp.screen.surface.get_size()
 
 ### INSTRUCTIONS ###
 General_Instructions = "This study has two parts. You will have to answer questions using the keyboard for both parts!"
@@ -45,20 +45,18 @@ def create_trial(Stimulus, Type, Filenumber):
     trial.set_factor("Stimulus", Stimulus)
     trial.set_factor("Type",Type)
     trial.set_factor('Filenumber', int(Filenumber))
-    # must write "int" because Filenumber = numpy.float64 due to pandas when 'pandas.read_csv' -
-    # wouldn't happen with csv but then would have to deal with generating a header
-    # + pandas allows us to use the name rather than the number of columns which is useful to easily extract information and add columns
+    # must write "int" because Filenumber = numpy.float64 due to pandas when 'pandas.read_csv' (wouldn't happen with csv but then would have to generate headers)
     Image_Stimulus = 'Stimuli_Resize/{} {} {}.jpg'.format(Stimulus, Type, Filenumber) # each {} is filed by a factor in the presented format () order
     trial.add_stimulus(stimuli.Picture(Image_Stimulus))
     return trial
 
 def stimulus_question_presentation (Answer):
-    canvas = stimuli.Canvas(size=screen_size) #create canvas that is the the size of the screen/screen surface. Must create new canvas every time or canvases will overwrite themselves (text will become blurry)
+    canvas = stimuli.Canvas(size=screen_size) #create canvas w/ size of the screen/screen surface. Must create new canvas every time or canvases will overwrite themselves
     trial.stimuli[0].plot(canvas)
     stimuli.TextScreen(heading = 'Is it a {}?'.format(trial.get_factor('Stimulus')), text = Answer).plot(canvas) # {} replaces by desired factor
     canvas.present() #canvas with trial and text stimuli above will be presented
     key, rt = exp.keyboard.wait(constants.K_ALL_DIGITS)
-    exp.data.add([block_name, trial.get_factor('Stimulus'), trial.get_factor('Type'), trial.get_factor('Filenumber'), [chr(key)], key, rt]) #[chr(key)] dont get key number on keyboard but actual number pressed by participant (useful for participants with different keyboards e.g. french/chinese)
+    exp.data.add([block_name, trial.get_factor('Stimulus'), trial.get_factor('Type'), trial.get_factor('Filenumber'), [chr(key)], key, rt]) #[chr(key)] dont get keyboard key number but number pressed by participant (useful for participants with different keyboards e.g. french/chinese)
 
 def political_ideology_questions (Question_A, Question_B, Question_C, Answer_Question):
     stimuli.TextScreen(heading = Question_A, text = Answer_Question).present()
@@ -92,8 +90,8 @@ Color.shuffle_trials()
 exp.add_block(Color)
 
 ####################### START EXPERIMENT ##########f##
-expyriment.control.start(skip_ready_screen = True) # asks for subject number available as exp.subject and creates data file available as exp.data
-exp.data_variable_names = ["Block", "Stimulus", "Type", "Filenumber", "Key Number", "Key Value", "RT"] #create column variable names for the variables that will be stored in exp.data data file using exp.add
+expyriment.control.start(skip_ready_screen = True) # asks subject number (available as exp.subject) and creates data file available as exp.data
+exp.data_variable_names = ["Block", "Stimulus", "Type", "Filenumber", "Key Number", "Key Value", "RT"] # create column variable names for the variables stored in exp.data data file using exp.add
 
 ############# PART 1: Demographic Information #############
 stimuli.TextScreen(heading = General_Instructions, text = Continue_Instructions).present()
@@ -104,7 +102,7 @@ stimuli.TextScreen(heading = Question_1, text = '').present()
 Answer1 = exp.keyboard.wait(constants.K_ALL_LETTERS) #press on any letter key
 stimuli.TextScreen(heading = Question_2, text = 'Press spacebar to enter your age (example: 26) and then press enter to move to the next question.').present()
 exp.keyboard.wait()
-Answer2 = Answer_Q2.get() #get input from io.TextInput("") (example here: numeric age of participant)
+Answer2 = Answer_Q2.get() #get input from io.TextInput("") 
 stimuli.TextScreen(heading = Question_3, text = Answer_Q_3).present()
 Answer3 = exp.keyboard.wait(constants.K_ALL_DIGITS) #press on any digit key
 stimuli.TextScreen(heading = Question_7, text = Answer_Q_7).present()
@@ -177,11 +175,11 @@ if block_num == "1":
     Answer4, Answer5, Answer6 = political_ideology_questions (Question_4, Question_5, Question_6, Answer_Q_456)
 
 ######## DEMOGRAPHIC DATA OUTPUT #######
-if os.path.isfile(DEMO): # check if it is a file otherwise create it
+if os.path.isfile(DEMO): # check if it is a file in data folder otherwise create it
     demo = pd.read_csv(DEMO)
 else:
     demo = pd.DataFrame(columns = ["Subject_ID", "Answer1","Answer2", "Answer3", "Answer4","Answer5","Answer6","Answer7","Answer8"])
-    #create file with demographic answers of all participants using key value and not key number
+    #create file with demographic answers of all participants
 
 current_subj = pd.DataFrame({"Subject_ID": [exp.subject],
                              "Answer1": [chr(Answer1[0])], # add [chr(    [0])] to get key value not number
@@ -193,6 +191,6 @@ current_subj = pd.DataFrame({"Subject_ID": [exp.subject],
                              "Answer7": [chr(Answer7[0])],
                              "Answer8": [chr(Answer8[0])]})
 demo = pd.concat([demo, current_subj]) #Link (concatenate) current_subj data frame with demo data frame
-demo.to_csv(DEMO, index = False) # False index so index doesn't appear in demographic.csv file stored in the data folder
+demo.to_csv(DEMO, index = False) # False index so index = doesn't appear in demographic.csv file
 
 expyriment.control.end(goodbye_text = "Thank you for participating!", confirmation = False, goodbye_delay = 1000)
